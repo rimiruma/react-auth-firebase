@@ -1,7 +1,13 @@
 import { NavLink } from "react-router";
 import './Navbar.css'
+import { use } from "react";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 const Navbar = () => {
+
+    const authInfo = use(AuthContext);
+    console.log('navbar',authInfo);
+    
 
     const links = <>
         <li className="mr-10"><NavLink to="/">Home</NavLink></li>
