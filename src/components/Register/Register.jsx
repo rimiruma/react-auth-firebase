@@ -1,28 +1,27 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router";
-import { auth } from "../../Firebase/firebase.init";
+// import { auth } from "../../Fire?base/firebase.init";
+import { use } from "react";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 
 const Register = () => {
 
+    const {createUser} = use(AuthContext);
+    
     const handleRegister = (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        console.log('cliking the', name, email, password);
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(result => {
-                console.log(result);
-
-            })
-            .catch(error => {
-                console.log(error);
-
-            })
-
-
+        createUser(email, password)
+        .then(result => {
+            console.log(result.user); 
+        })
+        .catch(error => {
+            console.log(error);
+            
+        })
     }
 
     return (
@@ -39,7 +38,7 @@ const Register = () => {
                             <label className="label">Password</label>
                             <input type="password" name="password" className="input" placeholder="Password" />
                             <div><a className="link link-hover">Forgot password?</a></div>
-                            <button className="btn btn-neutral mt-4">Login</button>
+                            <button className="btn btn-neutral mt-4"><Link to="/login">Register</Link></button>
                         </fieldset>
                     </form>
                     <p className="">Already Have an account? Please <Link to="/login" className="text-blue-500 hover:text-blue-800">Login</Link></p>
